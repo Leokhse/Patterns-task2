@@ -13,7 +13,7 @@ import static io.restassured.RestAssured.given;
 
 public class UserDataGenerator {
     private static final RequestSpecification requestSpec = new RequestSpecBuilder()
-            .setBaseUri("http://localhost")
+            .setBaseUri("http://localhost:9999")
             .setPort(9999)
             .setAccept(ContentType.JSON)
             .setContentType(ContentType.JSON)

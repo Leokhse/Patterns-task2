@@ -26,7 +26,6 @@ class AuthTest {
         $(byName("login")).setValue(registeredUser.getLogin());
         $(byName("password")).setValue(registeredUser.getPassword());
         $(".button").click();
-        $("div#root").should(appear);
         $(".heading_size_l").shouldHave(text("Личный кабинет"));
         $(".icon_name_bank-2449").shouldBe(visible);
     }
