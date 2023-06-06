@@ -33,10 +33,11 @@ class AuthTest {
     @DisplayName("Should fail login with incorrect password")
     void shouldFailLoginWithIncorrectPassword() {
         UserDataGenerator.UserData user = UserDataGenerator.generateUser("active");
+        String incorrectPassword = UserDataGenerator.generateRandomPassword();
 
         open("/");
         $(byName("login")).setValue(user.getLogin());
-        $(byName("password")).setValue("incorrect_password");
+        $(byName("password")).setValue(incorrectPassword);
         $(".button").click();
         $(".notification__content").shouldHave(text("Ошибка! Неверно указан логин или пароль"));
     }
@@ -45,9 +46,10 @@ class AuthTest {
     @DisplayName("Should fail login with incorrect login")
     void shouldFailLoginWithIncorrectLogin() {
         UserDataGenerator.UserData user = UserDataGenerator.generateUser("active");
+        String incorrectLogin = UserDataGenerator.generateRandomLogin();
 
         open("/");
-        $(byName("login")).setValue("incorrect_login");
+        $(byName("login")).setValue(incorrectLogin);
         $(byName("password")).setValue(user.getPassword());
         $(".button").click();
         $(".notification__content").shouldHave(text("Ошибка! Неверно указан логин или пароль"));
@@ -56,9 +58,12 @@ class AuthTest {
     @Test
     @DisplayName("Should fail login with unregistered user")
     void shouldFailLoginWithUnregisteredUser() {
+        String unregisteredUser = UserDataGenerator.generateRandomLogin();
+        String password = UserDataGenerator.generateRandomPassword();
+
         open("/");
-        $(byName("login")).setValue("unregistered_user");
-        $(byName("password")).setValue("password");
+        $(byName("login")).setValue(unregisteredUser);
+        $(byName("password")).setValue(password);
         $(".button").click();
         $(".notification__content").shouldHave(text("Ошибка! Неверно указан логин или пароль"));
     }

@@ -7,8 +7,6 @@ import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import lombok.Value;
-import java.util.UUID;
-
 
 import static io.restassured.RestAssured.given;
 
@@ -21,6 +19,7 @@ public class UserDataGenerator {
             .log(LogDetail.ALL)
             .build();
     private static final Gson gson = new Gson();
+    private static final Faker faker = new Faker();
 
     private UserDataGenerator() {
     }
@@ -33,16 +32,12 @@ public class UserDataGenerator {
         return user;
     }
 
-    private static String generateRandomLogin() {
-        Faker faker = new Faker();
-        String login = faker.name().username();
-        return login;
+    public static String generateRandomLogin() {
+        return faker.name().username();
     }
 
-    private static String generateRandomPassword() {
-        Faker faker = new Faker();
-        String password = faker.internet().password();
-        return password;
+    public static String generateRandomPassword() {
+        return faker.internet().password();
     }
 
     private static void saveUser(UserData user) {
